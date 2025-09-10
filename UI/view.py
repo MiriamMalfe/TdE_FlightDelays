@@ -17,30 +17,49 @@ class View(ft.UserControl):
         self.btn_hello = None
         self.txt_result = None
         self.txt_container = None
+        self.txtX = None
+        self.bottoneX = None
+        self.row2 = None
+        self.partenza=None
+        self.inserisciPart=None
+        self.btnP=None
+        self.destinazione=None
+        self.inserisciD=None
+        self.tratte = None
+        self.inserisceT = None
+        self.btnI=None
 
     def load_interface(self):
         # title
-        self._title = ft.Text("Hello World", color="blue", size=24)
+        self._title = ft.Text("Esame turno c", color="blue", size=24)
         self._page.controls.append(self._title)
 
-        #ROW with some controls
-        # text field for the name
-        self.txt_name = ft.TextField(
-            label="name",
-            width=200,
-            hint_text="Insert a your name"
-        )
+        self.p = ft.Text("", color="blue", size=12)
+        self.txtX = ft.TextField(label="Numero compagnie minime X")
+        self.bottoneX = ft.ElevatedButton(text="Analizza aeroporti", on_click= self._controller.handleCreaGrafo)
+        self.row2 = ft.Row([self.p, self.txtX, self.bottoneX], alignment=ft.MainAxisAlignment.CENTER)
+        self._page.controls.append(self.row2)
 
-        # button for the "hello" reply
-        self.btn_hello = ft.ElevatedButton(text="Hello", on_click=self._controller.handle_hello)
-        row1 = ft.Row([self.txt_name, self.btn_hello],
-                      alignment=ft.MainAxisAlignment.CENTER)
-        self._page.controls.append(row1)
+        self.partenza = ft.Text("Aeroporto di partenza", color="blue", size=12)
+        self.inserisciPart = ft.Dropdown(label="")
+        self.btnP = ft.ElevatedButton(text="Aeroporti connessi", on_click=self._controller.aeroportiConnessi)
+        row3= ft.Row([self.partenza, self.inserisciPart, self.btnP], alignment=ft.MainAxisAlignment.CENTER)
+        self._page.controls.append(row3)
 
-        # List View where the reply is printed
+        self.destinazione= ft.Text("Aeroporto di destinazione", color="blue", size=12)
+        self.inserisciD =  ft.Dropdown(label="")
+        row4 = ft.Row([self.destinazione, self.inserisciD], alignment=ft.MainAxisAlignment.CENTER)
+        self._page.controls.append(row4)
+
+        self.tratte = ft.Text("Numero tratte massime", color="blue", size=12)
+        self.inserisceT= ft.Dropdown(label="")
+        self.btnI = ft.ElevatedButton(text="Cerca itinerario", on_click=self._controller.cercaItinerario)
+        row5 = ft.Row([self.tratte, self.inserisceT, self.btnI], alignment=ft.MainAxisAlignment.CENTER)
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+        self._page.controls.append(row5)
         self._page.controls.append(self.txt_result)
-        self._page.update()
+        self.update_page()
+
 
     @property
     def controller(self):
